@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huddle - Meeting Room</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/meeting.css">
+</head>
+<body>
+    <div class="meeting-layout">
+        
+        <header class="meeting-header">
+            <div class="meeting-info">
+                <div class="room-badge" id="display-room-code">Connecting...</div>
+                
+                <div class="participant-count" title="People in meeting">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    <span id="user-count">1</span>
+                </div>
+
+                <button class="btn btn-secondary" id="copy-link-btn" title="Copy Link" style="width: 44px; height: 44px; padding: 0;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="meeting-clock" id="meeting-clock">--:--</div>
+        </header>
+
+        <div id="video-grid">
+            <div class="video-wrapper" id="local-video-wrapper" data-client-id="local">
+                <div class="avatar-placeholder" id="local-avatar">Y</div>
+            </div>
+        </div>
+
+        <div class="meeting-controls">
+            <button class="control-btn" id="toggle-mic-btn" title="Toggle Microphone">
+                <svg id="mic-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                    <line x1="12" y1="19" x2="12" y2="23"></line>
+                    <line x1="8" y1="23" x2="16" y2="23"></line>
+                </svg>
+            </button>
+            <button class="control-btn" id="toggle-cam-btn" title="Toggle Camera">
+                <svg id="cam-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                    <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                </svg>
+            </button>
+            <button class="control-btn" id="toggle-screen-btn" title="Share Screen">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+            </button>
+            <button class="control-btn" id="toggle-hand-btn" title="Raise Hand">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 11V6a2 2 0 0 0-4 0v4a2 2 0 0 0-4 0v4a2 2 0 0 0-4 0v5a7 7 0 0 0 14 0v-8z"></path>
+                </svg>
+            </button>
+            <button class="control-btn" id="reaction-btn" title="Send Reaction">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                    <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                    <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                </svg>
+            </button>
+            
+            <!-- NEW: Live Chat Toggle Button -->
+            <button class="control-btn" id="toggle-chat-btn" title="Live Chat" style="position: relative;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span class="chat-unread-badge" id="chat-unread-badge"></span>
+            </button>
+
+            <button class="leave-btn" id="leave-meeting-btn" title="Leave Meeting">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10 3H6a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h4M16 17l5-5-5-5M19.8 12H9"/>
+                </svg>
+                Leave
+            </button>
+        </div>
+
+        <!-- NEW: Sliding Chat Sidebar -->
+        <div id="chat-panel" class="chat-panel">
+            <div class="chat-header">
+                <h3>Meeting Chat</h3>
+                <button id="close-chat-btn" title="Close Chat">&times;</button>
+            </div>
+            <div id="chat-messages" class="chat-messages">
+                <!-- Chat bubbles dynamically injected here -->
+            </div>
+            <form id="chat-form" class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Send a message..." autocomplete="off" required>
+                <button type="submit" class="chat-submit-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </button>
+            </form>
+        </div>
+
+    </div>
+    <script type="module" src="js/meeting.js"></script>
+</body>
+</html>

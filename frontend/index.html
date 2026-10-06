@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huddle | Premium Video Meetings</title>
+    
+    <!-- Premium Font Loaded Directly -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        .hero { display: flex; align-items: center; justify-content: space-between; min-height: calc(100vh - 100px); gap: 4rem; position: relative; z-index: 1; }
+        .hero-content { flex: 1; max-width: 550px; }
+        .hero-title { margin-bottom: 1.25rem; }
+        .hero-subtitle { margin-bottom: 2.5rem; font-size: 1.25rem; color: var(--text-muted); }
+        .hero-actions { display: flex; gap: 1rem; align-items: center; }
+        .code-input-wrapper { display: flex; gap: 0.5rem; align-items: center; }
+        
+        .hero-visual {
+            flex: 1; background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid var(--border-color); border-radius: var(--radius-lg); height: 440px;
+            display: flex; flex-direction: column; padding: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); position: relative; overflow: hidden; backdrop-filter: blur(10px);
+        }
+        
+        .mock-toolbar { width: 100%; height: 40px; border-bottom: 1px solid var(--border-color); margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;}
+        .mock-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--border-color); }
+        .mock-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; flex: 1;}
+        .mock-video { background: rgba(0,0,0,0.3); border-radius: var(--radius-md); border: 1px solid var(--border-color); }
+
+        @media (max-width: 968px) {
+            .hero { flex-direction: column; text-align: center; justify-content: center; padding-top: 4rem; }
+            .hero-content { max-width: 100%; }
+            .hero-actions { flex-direction: column; justify-content: center; }
+            .hero-visual { width: 100%; max-width: 600px; height: 350px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="brand">
+                <div class="brand-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M23 7l-7 5 7 5V7z"></path>
+                        <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                    </svg>
+                </div>
+                Huddle
+            </div>
+            <div class="nav-actions">
+                <button class="btn btn-ghost" id="nav-login-btn">Log in</button>
+                <button class="btn btn-primary" id="nav-signup-btn">Sign up free</button>
+            </div>
+        </nav>
+
+        <!-- Main Hero Section -->
+        <main class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Premium video meetings. Now free for everyone.</h1>
+                <p class="hero-subtitle">We re-engineered the service we built for secure business meetings, Huddle, to make it free and available for all.</p>
+                
+                <div class="hero-actions">
+                    <button class="btn btn-primary" id="new-meeting-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                            <path d="M23 7l-7 5 7 5V7z"></path>
+                            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                        </svg>
+                        New Meeting
+                    </button>
+                    <div class="code-input-wrapper">
+                        <input type="text" class="input-field" id="meeting-code-input" placeholder="Enter a code or link">
+                        <button class="btn btn-ghost" id="join-meeting-btn">Join</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="mock-toolbar">
+                    <div class="mock-dot"></div>
+                    <div class="mock-dot"></div>
+                    <div class="mock-dot"></div>
+                </div>
+                <div class="mock-grid">
+                    <div class="mock-video"></div>
+                    <div class="mock-video"></div>
+                    <div class="mock-video"></div>
+                    <div class="mock-video"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Advanced Sliding Authentication Modal -->
+    <div class="modal-overlay" id="auth-modal">
+        <div class="auth-wrapper" id="auth-wrapper">
+            <!-- Close Button -->
+            <button class="close-btn auth-close" id="close-modal-btn">&times;</button>
+            
+            <!-- Sign Up Form -->
+            <div class="form-container sign-up-container">
+                <form id="signup-form" class="auth-form-inner">
+                    <h2>Create Account</h2>
+                    <p class="auth-subtitle">Join Huddle for free today.</p>
+                    <div id="signup-error-display" class="error-message"></div>
+                    
+                    <div class="input-group">
+                        <input type="text" id="signup-name" class="input-field" required placeholder="Full Name">
+                    </div>
+                    <div class="input-group">
+                        <input type="email" id="signup-email" class="input-field" required placeholder="Email Address">
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="signup-password" class="input-field" required minlength="8" placeholder="Password (min. 8 chars)">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+                    
+                    <!-- NEW: Google Login Integration -->
+                    <div style="text-align: center; margin: 1.5rem 0;">
+                        <span style="color: var(--text-faint); font-size: 0.85rem;">OR</span>
+                    </div>
+                    <button type="button" class="btn btn-secondary w-100 google-login-btn" style="gap: 0.75rem;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                        </svg>
+                        Continue with Google
+                    </button>
+                    
+                    <!-- Mobile only toggle -->
+                    <p class="mobile-toggle-text">Already have an account? <a href="#" id="mobile-to-login">Log in</a></p>
+                </form>
+            </div>
+            
+            <!-- Log In Form -->
+            <div class="form-container sign-in-container">
+                <form id="login-form" class="auth-form-inner">
+                    <h2>Welcome Back</h2>
+                    <p class="auth-subtitle">Log in to your Huddle dashboard.</p>
+                    <div id="login-error-display" class="error-message"></div>
+                    
+                    <div class="input-group">
+                        <input type="email" id="login-email" class="input-field" required placeholder="Email Address">
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="login-password" class="input-field" required placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Log In</button>
+
+                    <!-- NEW: Google Login Integration -->
+                    <div style="text-align: center; margin: 1.5rem 0;">
+                        <span style="color: var(--text-faint); font-size: 0.85rem;">OR</span>
+                    </div>
+                    <button type="button" class="btn btn-secondary w-100 google-login-btn" style="gap: 0.75rem;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                        </svg>
+                        Continue with Google
+                    </button>
+
+                    <!-- Mobile only toggle -->
+                    <p class="mobile-toggle-text">Don't have an account? <a href="#" id="mobile-to-signup">Sign up</a></p>
+                </form>
+            </div>
+            
+            <!-- Sliding Image Overlay -->
+            <div class="overlay-container">
+                <div class="sliding-overlay">
+                    <div class="overlay-panel overlay-left">
+                        <h2>Already have an account?</h2>
+                        <p style="margin-bottom: 2rem;">Sign in to securely access your meetings and personal dashboard.</p>
+                        <button class="btn btn-secondary" id="slide-to-login">Log In Instead</button>
+                    </div>
+                    <div class="overlay-panel overlay-right">
+                        <h2>New to Huddle?</h2>
+                        <p style="margin-bottom: 2rem;">Create a free account to start hosting secure, high-quality video meetings.</p>
+                        <button class="btn btn-secondary" id="slide-to-signup">Sign Up Free</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEW: Firebase SDKs loaded before our scripts -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+
+    <!-- Modular JS Imports -->
+    <script type="module" src="js/ui.js"></script>
+    <script type="module" src="js/auth.js"></script>
+</body>
+</html>

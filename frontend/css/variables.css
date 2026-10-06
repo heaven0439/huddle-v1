@@ -1,0 +1,48 @@
+/* frontend/css/variables.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    /* Premium Neutral Palette (Deep Zinc) */
+    --bg-base: #09090B;          /* Almost pure black */
+    --bg-surface: #18181B;       /* Solid card background */
+    --bg-glass: rgba(24, 24, 27, 0.7); /* Semi-transparent for blurs */
+    --bg-hover: rgba(255, 255, 255, 0.05);
+    
+    /* Modern SaaS Blue */
+    --primary: #2563EB;
+    --primary-hover: #1D4ED8;
+    --primary-glow: rgba(37, 99, 235, 0.15);
+    
+    /* Crisp Text */
+    --text-main: #FAFAFA;
+    --text-muted: #A1A1AA;
+    --text-faint: #52525B;
+    
+    /* Subtle Borders */
+    --border-color: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(255, 255, 255, 0.15);
+    
+    /* Typography - Restored */
+    --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    
+    /* Softer, more organic radii */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 24px;
+    --radius-full: 9999px;
+    
+    /* Cinematic Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --shadow-modal: 0 0 0 1px var(--border-color), 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    
+    /* Refined Transitions */
+    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
